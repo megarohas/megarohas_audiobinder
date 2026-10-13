@@ -15,18 +15,15 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "node --test --test-concurrency=1 \"tests/*.test.ts\"",
     "dist:mac": "npm run build && electron-builder --mac",
-    "dist:win": "npm run build && electron-builder --win"
+    "dist:win": "npm run build && electron-builder --win",
+    "smoke": "npm run build && AUDIOBINDER_SMOKE=${SMOKE_DIR:?set SMOKE_DIR} electron .",
+    "icon": "electron scripts/make-icon.mjs",
+    "fetch:ffmpeg": "node scripts/fetch-ffmpeg.mjs"
   },
-  "dependencies": {
+  "devDependencies": {
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "lucide-react": "^1.55.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "zustand": "^5.0.15"
-  },
-  "devDependencies": {
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -34,7 +31,87 @@
     "electron": "^44.7.0",
     "electron-builder": "^26.15.3",
     "electron-vite": "^5.0.0",
+    "lucide-react": "^1.55.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "typescript": "^7.0.2",
-    "vite": "^7.3.7"
+    "vite": "^7.3.7",
+    "zustand": "^5.0.15"
+  },
+  "build": {
+    "appId": "com.megarohas.audiobinder",
+    "productName": "Audiobinder",
+    "copyright": "© 2026 megarohas",
+    "directories": {
+      "buildResources": "resources",
+      "output": "dist"
+    },
+    "files": [
+      "out/**",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "vendor/ffmpeg/${os}-${arch}",
+        "to": "ffmpeg"
+      }
+    ],
+    "fileAssociations": [
+      {
+        "ext": "abproj",
+        "name": "Проект Audiobinder",
+        "role": "Editor"
+      }
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.utilities",
+      "icon": "icon.png",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "artifactName": "Audiobinder-${version}-mac-${arch}.${ext}"
+    },
+    "dmg": {
+      "title": "Audiobinder ${version}"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "Audiobinder-${version}-win-${arch}-setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "Audiobinder-${version}-win-${arch}-portable.${ext}"
+    }
   }
 }

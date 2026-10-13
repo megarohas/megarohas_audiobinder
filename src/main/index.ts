@@ -24,7 +24,7 @@ function locateTools(): void {
   const exe = process.platform === 'win32' ? '.exe' : ''
   const candidates = [
     join(process.resourcesPath ?? '', 'ffmpeg'),
-    join(app.getAppPath(), 'vendor', 'ffmpeg', `${process.platform}-${process.arch}`),
+    join(app.getAppPath(), 'vendor', 'ffmpeg', `${process.platform === 'win32' ? 'win' : process.platform === 'darwin' ? 'mac' : 'linux'}-${process.arch}`),
   ]
   for (const dir of candidates) {
     if (existsSync(join(dir, `ffmpeg${exe}`)) && existsSync(join(dir, `ffprobe${exe}`))) {
