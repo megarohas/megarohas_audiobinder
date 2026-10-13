@@ -79,16 +79,16 @@ export function planParts(p: Project, o: BuildOptions): PartPlan[] {
 
 export function passthroughCheck(p: Project, o: BuildOptions): { ok: boolean; reason?: string } {
   const f = p.files
-  if (!f.length) return { ok: false, reason: 'Нет файлов' }
-  if (!f.every((x) => x.codec === 'aac')) return { ok: false, reason: 'Не все файлы в AAC' }
-  if (!f.every((x) => /mp4|mov|m4a/.test(x.container))) return { ok: false, reason: 'Не все файлы в контейнере MP4/M4A' }
+  if (!f.length) return { ok: false, reason: 'нет файлов' }
+  if (!f.every((x) => x.codec === 'aac')) return { ok: false, reason: 'не все файлы в AAC' }
+  if (!f.every((x) => /mp4|mov|m4a/.test(x.container))) return { ok: false, reason: 'не все файлы в контейнере MP4/M4A' }
   const a = f[0]
   if (!f.every((x) => x.sampleRate === a.sampleRate && x.channels === a.channels && x.profile === a.profile)) {
-    return { ok: false, reason: 'Файлы различаются частотой, каналами или профилем AAC' }
+    return { ok: false, reason: 'файлы различаются частотой, каналами или профилем AAC' }
   }
-  if (o.partsMode === 'exact') return { ok: false, reason: 'Точное деление на части режет файлы посередине' }
+  if (o.partsMode === 'exact') return { ok: false, reason: 'точное деление на части режет файлы посередине' }
   if (o.partsMode === 'chapters' || o.partsMode === 'perChapter') {
-    if (timeline(p).some((c) => c.offset > EPS)) return { ok: false, reason: 'Есть главы внутри файлов — части пришлось бы резать' }
+    if (timeline(p).some((c) => c.offset > EPS)) return { ok: false, reason: 'есть главы внутри файлов — части пришлось бы резать' }
   }
   return { ok: true }
 }
