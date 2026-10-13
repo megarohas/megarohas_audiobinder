@@ -1,0 +1,7 @@
+node_modules/
+out/
+dist/
+build/
+vendor/ffmpeg/
+.DS_Store
+*.log
