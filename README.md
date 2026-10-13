@@ -44,6 +44,8 @@ Music/iTunes (файлы просто перетаскиваются из Finder
 
 ## Установка
 
+Готовые сборки — на странице [Releases](https://github.com/megarohas/megarohas_audiobinder/releases/latest).
+
 **macOS (Apple Silicon)** — `Audiobinder-<версия>-mac-arm64.dmg` или `.zip`.
 Приложение подписано ad-hoc (без сертификата Apple), поэтому после копирования
 в «Программы» один раз снимите карантин:
