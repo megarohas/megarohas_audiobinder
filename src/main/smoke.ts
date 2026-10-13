@@ -47,6 +47,7 @@ export async function runSmoke(win: BrowserWindow, cfg: { fixtures: string; out:
     await mkdir(cfg.out, { recursive: true })
     await waitFor('!!s.info')
     report.rootHtml = await js<string>('document.getElementById("root").innerHTML.length')
+    report.info = await st('s.info')
     await shot('01-empty')
 
     const files = (await readdir(cfg.fixtures)).filter((f) => /\.(mp3|m4a|flac|wav|ogg)$/i.test(f)).map((f) => join(cfg.fixtures, f))

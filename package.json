@@ -14,7 +14,7 @@
     "start": "electron-vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "node --test --test-concurrency=1 \"tests/*.test.ts\"",
-    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:mac": "npm run build && electron-builder --mac && node scripts/make-dmg.mjs",
     "dist:win": "npm run build && electron-builder --win",
     "smoke": "npm run build && AUDIOBINDER_SMOKE=${SMOKE_DIR:?set SMOKE_DIR} electron .",
     "icon": "electron scripts/make-icon.mjs",
@@ -66,12 +66,6 @@
     "mac": {
       "target": [
         {
-          "target": "dmg",
-          "arch": [
-            "arm64"
-          ]
-        },
-        {
           "target": "zip",
           "arch": [
             "arm64"
@@ -83,9 +77,6 @@
       "identity": "-",
       "hardenedRuntime": false,
       "artifactName": "Audiobinder-${version}-mac-${arch}.${ext}"
-    },
-    "dmg": {
-      "title": "Audiobinder ${version}"
     },
     "win": {
       "target": [
