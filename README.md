@@ -1,109 +1,115 @@
 # Audiobinder
 
-Сборщик аудиокниг для macOS и Windows — современная замена Audiobook Builder.
-Склеивает любые аудиофайлы в M4B, заполняет метаданные, расставляет главы
-(по файлам или по таймкодам), добавляет обложку и картинки глав.
+**English** | [Русский](README.ru.md)
 
-![Главы](docs/screenshot-chapters.png)
+An audiobook builder for macOS and Windows — a modern replacement for Audiobook
+Builder. Joins any audio files into an M4B, fills in the metadata, sets up chapters
+(per file or from timestamps), and adds a cover and chapter images.
 
-## Возможности
+![Chapters](docs/screenshot-chapters.png)
 
-- **Любые исходники**: MP3, M4A/M4B, FLAC, WAV, OGG/Opus, AAC, AIFF, WMA и всё,
-  что читает ffmpeg. Файлы и папки перетаскиваются в окно, сортировка «как в
-  Finder» (2 раньше 10).
-- **Без ограничений по длине**: книга одним файлом хоть на 100+ часов. Длинные
-  книги пишутся с 64-битными атомами MP4 (проверено на 40 ч и 4,6 ГБ — Apple
-  читает длительность и главы правильно).
-- **Метаданные**: название, автор, чтец, жанр, год, описание (полностью — в
-  `ldes`), издатель, копирайт, комментарий, текст (Lyrics), кодировщик, обложка.
-  Можно выбрать, в какие теги писать автора и чтеца (Artist / Album Artist /
-  Composer); чтец всегда дублируется в тег Narrator (`©nrt`).
-- **Главы**:
-  - по одной на файл, по встроенным главам файла или где угодно внутри файла;
-  - «Глава здесь» — отметка в текущей позиции плеера (⌘M);
-  - вставка списка таймкодов («0:00 Пролог», YouTube/Audible-стиль, OGM);
-  - объединение, разделение по файлам, правка времени начала прямо в таблице;
-  - переименование по шаблону (`Глава {n}: {name}`, нумерация, ведущие нули);
-  - картинка для каждой главы (QuickTime chapter images — видны в Apple Books и
-    «Музыке»), главы без картинки показывают обложку.
-- **Сборка**: M4B (аудиокнига, с закладками) или M4A; AAC или HE-AAC (на macOS —
-  кодек Apple); пресеты качества и свои параметры; **склейка без перекодирования**,
-  если исходники — совместимый AAC.
-- **Деление на части** (по желанию): примерно по N часов с разрывом между главами
-  или файлами, ровно по N часов, или файл на каждую главу. Разорванная глава
-  продолжается в следующей части («… (продолжение)»).
-- **Редактирование готовых книг**: открыть M4B → поправить главы/теги/обложку →
-  пересобрать (картинки глав тоже извлекаются).
-- **Проекты** `.abproj` — лёгкий JSON со ссылками на файлы: сохранить и вернуться
-  позже, перенос папки вместе с проектом не ломает пути.
-- Отмена/повтор, предпрослушивание с переходом между файлами, светлая и тёмная
-  тема, прогресс с оценкой времени и отменой.
+## Features
 
-Чего нет по сравнению с Audiobook Builder: импорта с аудио-CD и из медиатеки
-Music/iTunes (файлы просто перетаскиваются из Finder/Проводника).
+- **Any source format**: MP3, M4A/M4B, FLAC, WAV, OGG/Opus, AAC, AIFF, WMA and
+  anything else ffmpeg can read. Drag files and folders into the window; they're
+  sorted the way Finder does it (2 before 10).
+- **No length limit**: a single-file book of 100+ hours is fine. Long books are
+  written with 64-bit MP4 atoms (tested on 40 h / 4.6 GB — Apple reads the
+  duration and chapters correctly).
+- **Metadata**: title, author, narrator, genre, year, description (in full, in
+  `ldes`), publisher, copyright, comment, lyrics, encoder, cover. You choose which
+  tags the author and narrator go into (Artist / Album Artist / Composer); the
+  narrator is always duplicated into the Narrator tag (`©nrt`).
+- **Chapters**:
+  - one per file, from a file's embedded chapters, or anywhere inside a file;
+  - "Chapter here" (`Глава здесь` in the UI) — a marker at the current player
+    position (⌘M);
+  - paste a list of timestamps ("0:00 Prologue", YouTube/Audible style, OGM);
+  - merge, split by file, edit start times right in the table;
+  - rename by template (`Глава {n}: {name}`, numbering, leading zeros);
+  - an image for each chapter (QuickTime chapter images — shown in Apple Books
+    and Music); chapters without an image show the cover.
+- **Output**: M4B (audiobook, with bookmarks) or M4A; AAC or HE-AAC (Apple's
+  encoder on macOS); quality presets or custom settings; **joining without
+  re-encoding** when the sources are compatible AAC.
+- **Splitting into parts** (optional): roughly every N hours with the break
+  between chapters or files, exactly every N hours, or one file per chapter. A
+  chapter that gets cut continues in the next part ("… (продолжение)", i.e.
+  "continued").
+- **Editing finished books**: open an M4B → fix chapters/tags/cover → rebuild
+  (chapter images are extracted too).
+- **Projects** (`.abproj`) — lightweight JSON with references to the files: save
+  now, come back later; moving the folder together with the project doesn't
+  break the paths.
+- Undo/redo, preview playback that moves across files, light and dark themes,
+  progress with a time estimate and cancel.
 
-## Установка
+Missing compared to Audiobook Builder: importing from audio CDs and from the
+Music/iTunes library (just drag the files in from Finder/File Explorer).
 
-Готовые сборки — на странице [Releases](https://github.com/megarohas/megarohas_audiobinder/releases/latest).
+## Install
 
-**macOS (Apple Silicon)** — `Audiobinder-<версия>-mac-arm64.dmg` или `.zip`.
-Приложение подписано ad-hoc (без сертификата Apple), поэтому после копирования
-в «Программы» один раз снимите карантин:
+Prebuilt binaries are on the [Releases](https://github.com/megarohas/megarohas_audiobinder/releases/latest) page.
+
+**macOS (Apple Silicon)** — `Audiobinder-<version>-mac-arm64.dmg` or `.zip`.
+The app is ad-hoc signed (no Apple certificate), so after copying it to
+Applications, clear the quarantine flag once:
 
 ```bash
 xattr -dr com.apple.quarantine /Applications/Audiobinder.app
 ```
 
-**Windows (x64)** — установщик `…-win-x64-setup.exe` или переносная версия
-`…-win-x64-portable.exe`. SmartScreen может предупредить о неизвестном
-издателе: «Подробнее» → «Выполнить в любом случае».
+**Windows (x64)** — the `…-win-x64-setup.exe` installer or the portable
+`…-win-x64-portable.exe`. SmartScreen may warn about an unknown publisher:
+"More info" → "Run anyway".
 
-ffmpeg уже внутри приложения, ставить его отдельно не нужно.
+ffmpeg is bundled with the app — no need to install it separately.
 
-## Сборка из исходников
+## Building from source
 
-Нужны Node.js 22+ и npm.
+Requires Node.js 22+ and npm.
 
 ```bash
 npm install
-npm run fetch:ffmpeg      # статические ffmpeg/ffprobe → vendor/ffmpeg/{mac-arm64,win-x64}
+npm run fetch:ffmpeg      # static ffmpeg/ffprobe → vendor/ffmpeg/{mac-arm64,win-x64}
 npm run dist:mac          # dist/*.dmg, dist/*.zip
-npm run dist:win          # dist/*-setup.exe, dist/*-portable.exe (собирается и на macOS)
+npm run dist:win          # dist/*-setup.exe, dist/*-portable.exe (builds on macOS too)
 ```
 
-Разработка: `npm run dev` (без `vendor/` используется системный ffmpeg из PATH
-или Homebrew). Иконка перерисовывается из `resources/icon.svg`: `npm run icon`.
+Development: `npm run dev` (without `vendor/`, the system ffmpeg from PATH or
+Homebrew is used). The icon is re-rendered from `resources/icon.svg`:
+`npm run icon`.
 
-### Проверки
+### Checks
 
 ```bash
-npm test                  # ядро: главы, планирование, сборка реальных файлов через ffmpeg
+npm test                  # core: chapters, planning, building real files with ffmpeg
 npm run typecheck
-SMOKE_DIR=/путь/к/папке/с/mp3 npm run smoke   # невидимый прогон UI со скриншотами
-swiftc -O tools/avcheck.swift -o build/avcheck && build/avcheck книга.m4b   # что видит Apple
+SMOKE_DIR=/path/to/mp3/folder npm run smoke   # invisible UI run with screenshots
+swiftc -O tools/avcheck.swift -o build/avcheck && build/avcheck book.m4b   # what Apple sees
 ```
 
-## Как устроено
+## How it works
 
 ```
-src/core/      чистый Node (без Electron), запускается тестами напрямую
-  probe.ts       ffprobe: длительность, формат, теги, встроенные главы
-  chapters.ts    главы привязаны к файлу и смещению — переживают перестановку файлов
-  plan.ts        части, проверка pass-through, раскладка тегов, имена файлов
-  build.ts       декодирование каждого файла в PCM → один AAC-энкодер (точный подсчёт
-                 сэмплов, поэтому главы не «уплывают»), либо concat без перекодирования;
-                 затем ffmpeg пишет трек глав
-  mp4.ts         свой редактор атомов MP4: теги iTunes, обложка, трек картинок глав,
-                 64-битные смещения; меняет только хвост файла — аудио не копируется
-  importer.ts    разбор готовой M4B/MP3 обратно в проект
-src/main/      Electron: окно, меню, IPC, протокол media:// для предпрослушивания
-src/preload/   мост window.api (contextIsolation + sandbox)
-src/renderer/  интерфейс на React + zustand
+src/core/      plain Node (no Electron), run directly by the tests
+  probe.ts       ffprobe: duration, format, tags, embedded chapters
+  chapters.ts    chapters are anchored to a file and an offset — they survive reordering files
+  plan.ts        parts, pass-through check, tag layout, file names
+  build.ts       decodes every file to PCM → a single AAC encoder (exact sample
+                 counting, so chapters don't drift), or concat without re-encoding;
+                 then ffmpeg writes the chapter track
+  mp4.ts         custom MP4 atom editor: iTunes tags, cover, chapter-image track,
+                 64-bit offsets; only rewrites the end of the file — audio isn't copied
+  importer.ts    parses a finished M4B/MP3 back into a project
+src/main/      Electron: window, menu, IPC, media:// protocol for preview
+src/preload/   window.api bridge (contextIsolation + sandbox)
+src/renderer/  React + zustand UI
 ```
 
-## Лицензии
+## Licenses
 
-Код Audiobinder — MIT. В дистрибутивы входит [FFmpeg](https://ffmpeg.org):
-для Windows — LGPL-сборка [BtbN](https://github.com/BtbN/FFmpeg-Builds), для
-macOS — сборка [Martin Riedl](https://ffmpeg.martin-riedl.de); исходники и
-условия — на сайтах проектов.
+Audiobinder's code is MIT. The distributions bundle [FFmpeg](https://ffmpeg.org):
+an LGPL build by [BtbN](https://github.com/BtbN/FFmpeg-Builds) for Windows, and a
+build by [Martin Riedl](https://ffmpeg.martin-riedl.de) for macOS; sources and
+terms are on the projects' sites.
